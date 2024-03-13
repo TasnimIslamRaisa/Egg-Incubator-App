@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 
 class About extends StatefulWidget {
@@ -41,19 +39,19 @@ class _AboutState extends State<About> {
               "About This App",
               style: TextStyle(
                 fontSize: 25,
-                fontWeight: FontWeight.w300,
+                fontWeight: FontWeight.w500,
               ),
             )),
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(2.0),
           child: Container(
             height: 590,
             width: 340,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(25),
-              color: Colors.deepPurple[100],
+              //color: Colors.deepPurple[100],
             ),
             child: Center(
                 child: Padding(

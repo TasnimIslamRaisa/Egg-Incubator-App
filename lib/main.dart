@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:weather_flutter/Bluetooth.dart';
 import 'package:weather_flutter/modal/MyAppContainer.dart';
 import 'package:weather_flutter/screen/About.dart';
 import 'package:weather_flutter/screen/Home.dart';
+import 'package:weather_flutter/screen/IpAddress.dart';
 import 'package:weather_flutter/screen/Light.dart';
+import 'package:weather_flutter/screen/RealtimeMonitor.dart';
 import 'package:weather_flutter/screen/Settings.dart';
+import 'package:weather_flutter/screen/Notification.dart';
 
 bool isDark = false;
 bool isOn = false;
-bool isLightOn = false;
+bool isLightOn = true;
 
 void main() {
   runApp(
     Directionality(
-      textDirection: TextDirection.ltr, // or any other appropriate text direction
+      textDirection:
+          TextDirection.ltr, // or any other appropriate text direction
       child: MyApp(),
     ),
   );
@@ -43,6 +48,10 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
           "/about": (context) => About(),
+          "/notifications": (context) =>
+              NotificationScreen(temperature: temperature),
+          "/bluetooth": (context) => Bluetooth(),
+          "/ipAddress": (context) => IpAddressScreen(),
           "/light": (context) => Light(
                 toggleLight: () {
                   setState(() {

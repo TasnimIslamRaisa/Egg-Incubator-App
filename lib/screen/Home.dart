@@ -1,14 +1,30 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:weather_flutter/screen/Notification.dart';
 import 'package:weather_flutter/screen/RealtimeMonitor.dart';
+import 'package:badges/badges.dart' as badger;
 
 class Home extends StatefulWidget {
+  const Home({super.key});
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  int unreadNotifications = 0;
+  void incrementUnreadNotifications() {
+    setState(() {
+      unreadNotifications++;
+    });
+  }
+
+  void resetUnreadNotifications() {
+    setState(() {
+      unreadNotifications = 0;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,10 +52,34 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.home),
-              title: Text("H O M E"),
+              title: Row(
+                children: [
+                  badger.Badge(
+                    child: Icon(Icons.notifications),
+                    badgeContent: Text(
+                      unreadNotifications.toString(),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    badgeColor: Colors.red, // Set badge color
+                    animationType:
+                        badger.BadgeAnimationType.scale, // Set badge animation
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text("N O T I F I  C A T I O N"),
+                ],
+              ),
               onTap: () {
+                // Navigate to NotificationScreen
                 Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        NotificationScreen(temperature: temperature),
+                  ),
+                );
               },
             ),
             ListTile(
@@ -58,6 +98,22 @@ class _HomeState extends State<Home> {
                 Navigator.pushNamed(context, "/about");
               },
             ),
+            ListTile(
+              leading: Icon(Icons.bluetooth),
+              title: Text("B L U E T O O T H"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "/bluetooth");
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.wifi),
+              title: Text("Saved IP Address"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "/ipAddress");
+              },
+            ),
           ],
         ),
       ),
@@ -73,10 +129,12 @@ class _HomeState extends State<Home> {
           ),
         ),
         centerTitle: true,
-        title: Text(
-          ' E G G - I N C U B A T O R ',
-          style: TextStyle(
-              fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white),
+        title: Center(
+          child: Text(
+            'EGG-INCUBATOR',
+            style: TextStyle(
+                fontSize: 25, fontWeight: FontWeight.w800, color: Colors.white),
+          ),
         ),
       ),
       body: RealtimeMonitor(),
