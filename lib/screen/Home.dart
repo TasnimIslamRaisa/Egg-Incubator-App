@@ -138,6 +138,13 @@ class _HomeState extends State<Home> {
         ),
       ),
       body: RealtimeMonitor(),
+      //for notification
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.notifications),
+        backgroundColor: Colors.purple[900],
+        foregroundColor: Colors.purple[100],
+      ),
     );
   }
 }

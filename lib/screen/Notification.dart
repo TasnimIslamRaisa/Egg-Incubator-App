@@ -84,8 +84,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         notifications.add(NotificationData(
           notificationMessage:
               'The temperature is high! Please turn off the light',
-          timestamp: DateTime.now(), // Replace with actual notification message
-          // Use current timestamp
+          timestamp: DateTime.now(), // Use current timestamp
         ));
       });
     } else if (temperature <= 35) {

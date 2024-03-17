@@ -9,7 +9,7 @@ double humidity = 0;
 double distance = 0;
 
 class RealtimeMonitor extends StatefulWidget {
-  const RealtimeMonitor({super.key});
+  const RealtimeMonitor({Key? key}) : super(key: key);
 
   @override
   State<RealtimeMonitor> createState() => _RealtimeMonitorState();
@@ -36,7 +36,7 @@ class _RealtimeMonitorState extends State<RealtimeMonitor> {
 
   Future<void> fetchData() async {
     final response = await get(Uri.parse(
-        'http://192.168.0.100/sensor-data')); // Replace with your ESP32's IP address
+        'http://192.168.175.246/sensor-data')); // Replace with your ESP32's IP address
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {

@@ -15,7 +15,7 @@ bool isLightOn = true;
 
 void main() {
   runApp(
-    Directionality(
+    const Directionality(
       textDirection:
           TextDirection.ltr, // or any other appropriate text direction
       child: MyApp(),
@@ -24,6 +24,8 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
   @override
   State<MyApp> createState() => _MyAppState();
 }
