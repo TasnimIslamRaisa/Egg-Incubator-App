@@ -39,8 +39,20 @@ class _HomeState extends State<Home> {
               accountEmail: Text(" E G G - I N C U B A T O R "),
               currentAccountPicture: Center(
                 child: Image.network(
-                  "https://www.iotevents.org/wp-content/uploads/2017/10/IOT-LOGO-final_transparent-03.png",
+                    "https://www.iotevents.org/wp-content/uploads/2017/10/IOT-LOGO-final_transparent-03.png"),
+                /*
+                 Stack(
+                  children: [
+                    Center(
+                      child: Image.asset(
+                        "lib/images/logo.jpeg",
+                        height: 150,
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ],
                 ),
+                */
               ),
             )),
             ListTile(
@@ -52,32 +64,17 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              title: Row(
-                children: [
-                  badger.Badge(
-                    child: Icon(Icons.notifications),
-                    badgeContent: Text(
-                      unreadNotifications.toString(),
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    badgeColor: Colors.red, // Set badge color
-                    animationType:
-                        badger.BadgeAnimationType.scale, // Set badge animation
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text("N O T I F I  C A T I O N"),
-                ],
-              ),
+              leading: Icon(Icons.notifications),
+              title: Text("N O T I F I C A T I O N S"),
               onTap: () {
                 // Navigate to NotificationScreen
                 Navigator.pop(context);
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        NotificationScreen(temperature: temperature),
+                    builder: (context) => NotificationScreen(
+                      temperature: temperature,
+                    ),
                   ),
                 );
               },
@@ -140,10 +137,19 @@ class _HomeState extends State<Home> {
       body: RealtimeMonitor(),
       //for notification
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: Icon(Icons.notifications),
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NotificationScreen(
+                temperature: temperature,
+              ),
+            ),
+          );
+        },
         backgroundColor: Colors.purple[900],
         foregroundColor: Colors.purple[100],
+        child: Icon(Icons.notifications),
       ),
     );
   }

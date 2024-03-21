@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:weather_flutter/screen/RealtimeMonitor.dart';
+import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
-  // const NotificationScreen({Key? key, required double temperature}): super(key: key);
   final double temperature;
 
   const NotificationScreen({Key? key, required this.temperature})
@@ -13,89 +12,64 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  //int temperature = 0; // Replace with actual temperature value
   List<NotificationData> notifications = [];
 
   @override
   Widget build(BuildContext context) {
-    String notificationMessage = '';
-    Color notificationColor = Colors.transparent;
-
-    if (temperature >= 38) {
-      notificationMessage =
-          'The temperature is high! Please turn off the light';
-      notificationColor = Colors.red;
-    } else if (temperature <= 35) {
-      notificationMessage = 'The temperature is low! Please turn on the light';
-      notificationColor = Colors.purple[800]!;
-    }
-
     return Scaffold(
       appBar: AppBar(
-        title: Text("N O T I F I C A T I O N"),
+        title: Text("N O T I F I C A T I O N S"),
+        centerTitle: true,
         elevation: 0,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.deepPurple[100]!, Colors.deepPurple[200]!],
+              colors: [Colors.deepPurple[50]!, Colors.deepPurple[200]!],
             ),
           ),
         ),
-        centerTitle: true,
       ),
-      body: ListView.builder(
-        itemCount: notifications.length,
-        itemBuilder: (context, index) {
-          // Display notification with timestamp
-          return ListTile(
-            title: Text(notifications[index].notificationMessage),
-            subtitle: Text(notifications[index].timestamp.toString()),
+      body: Consumer<NotificationProvider>(
+        builder: (context, provider, _) {
+          return ListView.builder(
+            itemCount: provider.notifications.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(provider.notifications[index].notificationMessage),
+                subtitle:
+                    Text(provider.notifications[index].timestamp.toString()),
+              );
+            },
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Add a sample notification when FAB is pressed
-          addNotification();
+          _addNotification();
         },
         child: Icon(Icons.add),
       ),
     );
   }
 
-  // Function to add a notification to the list
-  /*
-  void addNotification() {
-    setState(() {
+  void _addNotification() {
+    double temperature = widget.temperature;
+    if (temperature <= 50) {
       notifications.add(NotificationData(
-        message:
-            'Sample notification', // Replace with actual notification message
-        timestamp: DateTime.now(), // Use current timestamp
+        notificationMessage:
+            'The temperature is high! Please turn off the light',
+        timestamp: DateTime.now(),
+      ));
+    } else if (temperature <= 40) {
+      notifications.add(NotificationData(
+        notificationMessage: 'The temperature is Low! Please turn on the light',
+        timestamp: DateTime.now(),
       ));
     }
-    );
-  }*/
-
-  void addNotification() {
-    if (temperature >= 38) {
-      setState(() {
-        notifications.add(NotificationData(
-          notificationMessage:
-              'The temperature is high! Please turn off the light',
-          timestamp: DateTime.now(), // Use current timestamp
-        ));
-      });
-    } else if (temperature <= 35) {
-      setState(() {
-        notifications.add(NotificationData(
-          notificationMessage:
-              'The temperature is Low! Please turn on the light', // Replace with actual notification message
-          timestamp: DateTime.now(), // Use current timestamp
-        ));
-      });
-    }
+    Provider.of<NotificationProvider>(context, listen: false)
+        .addNotification(notifications.last);
   }
 }
 
@@ -107,4 +81,15 @@ class NotificationData {
     required this.notificationMessage,
     required this.timestamp,
   });
+}
+
+class NotificationProvider extends ChangeNotifier {
+  final List<NotificationData> _notifications = [];
+
+  List<NotificationData> get notifications => _notifications;
+
+  void addNotification(NotificationData notification) {
+    _notifications.add(notification);
+    notifyListeners();
+  }
 }

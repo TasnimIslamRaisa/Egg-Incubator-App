@@ -22,7 +22,7 @@ class _RealtimeMonitorState extends State<RealtimeMonitor> {
   void initState() {
     super.initState();
     // Start a periodic timer to fetch data every 2 seconds
-    _timer = Timer.periodic(Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
       fetchData();
     });
   }
@@ -35,8 +35,8 @@ class _RealtimeMonitorState extends State<RealtimeMonitor> {
   }
 
   Future<void> fetchData() async {
-    final response = await get(Uri.parse(
-        'http://192.168.175.246/sensor-data')); // Replace with your ESP32's IP address
+    final response = await get(
+        Uri.parse('http://192.168.0.112/sensor-data')); // ESP32's IP address
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       setState(() {
@@ -50,16 +50,32 @@ class _RealtimeMonitorState extends State<RealtimeMonitor> {
     }
   }
 
+  /// Function to define the gradient color based on temperature
+  LinearGradient getGradientColor() {
+    if (temperature >= 25) {
+      // Return red gradient color
+      return LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomRight,
+        colors: [Colors.red[400]!, Colors.deepPurple[50]!],
+      );
+    } else {
+      // Return default gradient color
+      return LinearGradient(
+        begin: Alignment.topRight,
+        end: Alignment.bottomLeft,
+        colors: [Colors.deepPurple[50]!, Colors.deepPurple[200]!],
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
         decoration: BoxDecoration(
-            gradient: LinearGradient(
-          begin: Alignment.topRight,
-          end: Alignment.bottomLeft,
-          colors: [Colors.deepPurple[100]!, Colors.deepPurple[400]!],
-        )),
+          gradient: getGradientColor(), // Use the gradient color here
+        ),
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,

@@ -80,7 +80,8 @@ class _BluetoothState extends State<Bluetooth> {
   }
 
   void _saveIpAddress(BuildContext context) async {
-    await _ipAddress.writeIpAddress(_controller.text); // Use _ipAddress object
+    await IpAddress.writeIpAddresses(
+        _controller.text as List<String>); // Use _ipAddress object
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('IP Address saved')),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_flutter/Bluetooth.dart';
 import 'package:weather_flutter/modal/MyAppContainer.dart';
 import 'package:weather_flutter/screen/About.dart';
@@ -15,16 +16,18 @@ bool isLightOn = true;
 
 void main() {
   runApp(
-    const Directionality(
-      textDirection:
-          TextDirection.ltr, // or any other appropriate text direction
-      child: MyApp(),
+    ChangeNotifierProvider(
+      create: (context) => NotificationProvider(),
+      child: Directionality(
+        textDirection: TextDirection.ltr,
+        child: MyApp(),
+      ),
     ),
   );
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -38,7 +41,7 @@ class _MyAppState extends State<MyApp> {
         title: 'Realtime Monitor',
         theme: isDark ? ThemeData.dark() : ThemeData.light(),
         debugShowCheckedModeBanner: false,
-        home: Home(),
+        home: const Home(),
         routes: {
           //"/": (context) => Home(),
           "/settings": (context) => Settings(
@@ -50,9 +53,11 @@ class _MyAppState extends State<MyApp> {
                 },
               ),
           "/about": (context) => About(),
-          "/notifications": (context) =>
-              NotificationScreen(temperature: temperature),
-          "/bluetooth": (context) => Bluetooth(),
+          "/ipsave": (context) => IpAddressScreen(),
+          "/notifications": (context) => NotificationScreen(
+                temperature: temperature,
+              ),
+          "/bluetooth": (context) => const Bluetooth(),
           "/ipAddress": (context) => IpAddressScreen(),
           "/light": (context) => Light(
                 toggleLight: () {

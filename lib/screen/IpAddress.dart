@@ -1,7 +1,9 @@
 // ignore_for_file: library_private_types_in_public_api, unused_import, prefer_final_fields, prefer_const_constructors
 
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:weather_flutter/screen/IpAddress.dart';
+import 'package:path_provider/path_provider.dart';
 
 class IpAddressScreen extends StatefulWidget {
   @override
@@ -10,21 +12,19 @@ class IpAddressScreen extends StatefulWidget {
 
 class _IpAddressScreenState extends State<IpAddressScreen> {
   TextEditingController _controller = TextEditingController();
-
-  IpAddress _ipAddress =
-      IpAddress(); // Create an instance of the IpAddress class
+  List<String> _ipAddresses = [];
 
   @override
   void initState() {
     super.initState();
-    _loadIpAddress();
+    _loadIpAddresses();
   }
 
-  Future<void> _loadIpAddress() async {
-    String? ipAddress = await _ipAddress.readIpAddress(); // Use the instance
-    if (ipAddress != null) {
+  Future<void> _loadIpAddresses() async {
+    List<String>? ipAddresses = await IpAddress.readIpAddresses();
+    if (ipAddresses != null) {
       setState(() {
-        _controller.text = ipAddress;
+        _ipAddresses = ipAddresses;
       });
     }
   }
@@ -33,7 +33,7 @@ class _IpAddressScreenState extends State<IpAddressScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('IP Address'),
+        title: Text('IP Addresses'),
         elevation: 0,
         flexibleSpace: Container(
           decoration: BoxDecoration(
@@ -46,20 +46,108 @@ class _IpAddressScreenState extends State<IpAddressScreen> {
         ),
         centerTitle: true,
       ),
-      body: Text("Saved IP Address"),
+      body: ListView.builder(
+        itemCount: _ipAddresses.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(_ipAddresses[index]),
+            trailing: IconButton(
+              icon: Icon(Icons.delete),
+              onPressed: () => _deleteIpAddress(index),
+            ),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _addIpAddress(context),
+        child: Icon(Icons.add),
+      ),
     );
   }
 
-  void _saveIpAddress(BuildContext context) async {
-    await _ipAddress.writeIpAddress(_controller.text); // Use the instance
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('IP Address saved')),
+  Future<void> _addIpAddress(BuildContext context) async {
+    String? ipAddress = await showDialog(
+      context: context,
+      builder: (context) => _buildAddIpAddressDialog(context),
     );
+    if (ipAddress != null) {
+      await IpAddress.addIpAddress(ipAddress);
+      await _loadIpAddresses();
+    }
+  }
+
+  Widget _buildAddIpAddressDialog(BuildContext context) {
+    return AlertDialog(
+      title: Text('Add IP Address'),
+      content: TextField(
+        controller: _controller,
+        decoration: InputDecoration(labelText: 'Enter IP Address'),
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(null);
+          },
+          child: Text('Cancel'),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop(_controller.text);
+          },
+          child: Text('Add'),
+        ),
+      ],
+    );
+  }
+
+  Future<void> _deleteIpAddress(int index) async {
+    await IpAddress.deleteIpAddress(index);
+    await _loadIpAddresses();
   }
 }
 
 class IpAddress {
-  writeIpAddress(String text) {}
+  static const String _fileName = 'ip_addresses.txt';
 
-  readIpAddress() {}
+  static Future<void> addIpAddress(String ipAddress) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$_fileName');
+      List<String> ipAddresses = await readIpAddresses() ?? [];
+      ipAddresses.add(ipAddress);
+      await file.writeAsString(ipAddresses.join('\n'));
+    } catch (e) {
+      print('Error writing IP address: $e');
+    }
+  }
+
+  static Future<List<String>?> readIpAddresses() async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$_fileName');
+      if (await file.exists()) {
+        List<String> ipAddresses = await file.readAsLines();
+        return ipAddresses;
+      }
+    } catch (e) {
+      print('Error reading IP addresses: $e');
+    }
+    return null;
+  }
+
+  static Future<void> deleteIpAddress(int index) async {
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/$_fileName');
+      List<String> ipAddresses = await readIpAddresses() ?? [];
+      if (index >= 0 && index < ipAddresses.length) {
+        ipAddresses.removeAt(index);
+        await file.writeAsString(ipAddresses.join('\n'));
+      }
+    } catch (e) {
+      print('Error deleting IP address: $e');
+    }
+  }
+
+  static writeIpAddresses(List<String> text) {}
 }

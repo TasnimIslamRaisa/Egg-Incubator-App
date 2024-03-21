@@ -22,7 +22,7 @@ class _LightState extends State<Light> {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.deepPurple[100]!, Colors.deepPurple[200]!],
+              colors: [Colors.deepPurple[50]!, Colors.deepPurple[200]!],
             ),
           ),
         ),
@@ -33,7 +33,7 @@ class _LightState extends State<Light> {
           height: 320,
           width: 320,
           decoration: BoxDecoration(
-              color: Colors.deepPurple[100],
+              color: Colors.purple[50],
               borderRadius: BorderRadius.circular(25)),
           child: IconButton(
             onPressed: () {

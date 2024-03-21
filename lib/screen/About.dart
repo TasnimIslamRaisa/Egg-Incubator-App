@@ -18,7 +18,7 @@ class _AboutState extends State<About> {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Colors.deepPurple[100]!, Colors.deepPurple[200]!],
+              colors: [Colors.deepPurple[50]!, Colors.deepPurple[200]!],
             ),
           ),
         ),
