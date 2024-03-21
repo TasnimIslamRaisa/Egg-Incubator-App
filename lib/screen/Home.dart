@@ -64,6 +64,14 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
+              leading: Icon(Icons.wifi),
+              title: Text("I P - A D D R E S S"),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, "/ipAddress");
+              },
+            ),
+            ListTile(
               leading: Icon(Icons.notifications),
               title: Text("N O T I F I C A T I O N S"),
               onTap: () {
@@ -88,13 +96,14 @@ class _HomeState extends State<Home> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.crisis_alert),
+              leading: Icon(Icons.account_circle),
               title: Text("A B O U T"),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pushNamed(context, "/about");
               },
             ),
+            /*
             ListTile(
               leading: Icon(Icons.bluetooth),
               title: Text("B L U E T O O T H"),
@@ -103,14 +112,7 @@ class _HomeState extends State<Home> {
                 Navigator.pushNamed(context, "/bluetooth");
               },
             ),
-            ListTile(
-              leading: Icon(Icons.wifi),
-              title: Text("Saved IP Address"),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.pushNamed(context, "/ipAddress");
-              },
-            ),
+            */
           ],
         ),
       ),

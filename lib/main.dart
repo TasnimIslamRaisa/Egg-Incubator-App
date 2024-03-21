@@ -18,7 +18,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => NotificationProvider(),
-      child: Directionality(
+      child: const Directionality(
         textDirection: TextDirection.ltr,
         child: MyApp(),
       ),
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MyAppContainer(
       child: MaterialApp(
-        title: 'Realtime Monitor',
+        title: 'Egg Incubator',
         theme: isDark ? ThemeData.dark() : ThemeData.light(),
         debugShowCheckedModeBanner: false,
         home: const Home(),
@@ -52,7 +52,7 @@ class _MyAppState extends State<MyApp> {
                   });
                 },
               ),
-          "/about": (context) => About(),
+          "/about": (context) => const About(),
           "/ipsave": (context) => IpAddressScreen(),
           "/notifications": (context) => NotificationScreen(
                 temperature: temperature,

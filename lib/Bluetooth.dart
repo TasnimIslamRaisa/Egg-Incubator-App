@@ -13,7 +13,6 @@ class Bluetooth extends StatefulWidget {
 class _BluetoothState extends State<Bluetooth> {
   final TextEditingController _controller = TextEditingController();
   bool _showSetIpButton = false;
-  final IpAddress _ipAddress = IpAddress();
 
   @override
   Widget build(BuildContext context) {
