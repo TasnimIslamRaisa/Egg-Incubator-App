@@ -3,8 +3,8 @@
 #include <DHT.h>
 
 WebServer server(80);
-#define WIFI_SSID "Raisa Tasnim"
-#define WIFI_PASSWORD "raisa123"
+#define WIFI_SSID "Your Wifi SSID"
+#define WIFI_PASSWORD "Your Wifi Password"
 #define DHT_PIN 4       // Pin connected to DHT sensor
 #define DHT_TYPE DHT11  // Type of DHT sensor (DHT11 or DHT22)
 #define ULTRASONIC_PIN_TRIGGER 2  // Trigger pin of ultrasonic sensor
