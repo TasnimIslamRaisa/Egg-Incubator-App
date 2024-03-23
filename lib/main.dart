@@ -8,7 +8,7 @@ import 'package:weather_flutter/screen/IpAddress.dart';
 import 'package:weather_flutter/screen/Light.dart';
 import 'package:weather_flutter/screen/RealtimeMonitor.dart';
 import 'package:weather_flutter/screen/Settings.dart';
-import 'package:weather_flutter/screen/Notification.dart';
+import 'package:weather_flutter/screen/NotificationScreen.dart';
 
 bool isDark = false;
 bool isOn = false;

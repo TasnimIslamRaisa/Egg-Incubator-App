@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:weather_flutter/screen/Notification.dart';
+import 'package:weather_flutter/screen/NotificationScreen.dart';
 import 'package:weather_flutter/screen/RealtimeMonitor.dart';
 import 'package:badges/badges.dart' as badger;
 

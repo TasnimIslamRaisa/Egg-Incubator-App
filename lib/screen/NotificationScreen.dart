@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' show Alignment, AppBar, BoxDecoration, BuildContext, ChangeNotifier, Colors, Container, FloatingActionButton, Icon, Icons, Key, LinearGradient, ListTile, ListView, Scaffold, State, StatefulWidget, Text, Widget;
 import 'package:provider/provider.dart';
 
 class NotificationScreen extends StatefulWidget {
@@ -18,7 +18,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("N O T I F I C A T I O N S"),
+        title:const  Text("N O T I F I C A T I O N S"),
         centerTitle: true,
         elevation: 0,
         flexibleSpace: Container(
@@ -49,20 +49,20 @@ class _NotificationScreenState extends State<NotificationScreen> {
         onPressed: () {
           _addNotification();
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.notifications),
       ),
     );
   }
 
   void _addNotification() {
     double temperature = widget.temperature;
-    if (temperature <= 50) {
+    if (temperature >= 30) {
       notifications.add(NotificationData(
         notificationMessage:
             'The temperature is high! Please turn off the light',
         timestamp: DateTime.now(),
       ));
-    } else if (temperature <= 40) {
+    } else if (temperature < 30) {
       notifications.add(NotificationData(
         notificationMessage: 'The temperature is Low! Please turn on the light',
         timestamp: DateTime.now(),

@@ -52,7 +52,7 @@ class _RealtimeMonitorState extends State<RealtimeMonitor> {
 
   /// Function to define the gradient color based on temperature
   LinearGradient getGradientColor() {
-    if (temperature >= 25) {
+    if (temperature >= 30) {
       // Return red gradient color
       return LinearGradient(
         begin: Alignment.topRight,
