@@ -1,46 +1,61 @@
 # 🐣 Egg Incubator App  
 
-The **Egg Incubator App** is an IoT-based solution for monitoring and controlling the ideal conditions for hatching eggs. This mobile application provides users with real-time environmental updates and an intuitive interface for managing the incubation process seamlessly.  
+The **Egg Incubator App** is an IoT-based mobile application designed to help users monitor and control the optimal conditions for hatching eggs. With real-time monitoring, a user-friendly interface, and seamless IoT integration, this app makes managing an egg incubator simple and efficient.  
 
 ---
 
-## 📋 Features  
+## 📋 Key Features  
 
-- **Real-Time Monitoring**: Track humidity, temperature, and distance using sensors.  
-- **Adjustable Settings**: Modify incubation conditions directly from your smartphone.  
-- **Dark Mode and Light Mode**: Switch between themes for optimal user experience.  
-- **IoT Hardware Integration**: Effortless connection with sensors and hardware for live updates.  
-- **User-Friendly Interface**: Easy-to-navigate design tailored for both beginners and professionals.  
+### 🖥️ **Real-Time Monitoring**  
+- Continuously track humidity, temperature, and distance using IoT sensors.  
+- View live updates directly on your smartphone.  
+
+### 🔧 **Adjustable Settings**  
+- Modify incubation conditions like temperature and humidity thresholds.  
+- Set up notifications for critical environmental changes.  
+
+### 🌗 **Dark and Light Modes**  
+- Switch between dark and light themes to suit your preference.  
+
+### 📡 **Seamless IoT Hardware Integration**  
+- Automatically sync with ultrasonic, temperature, and humidity sensors.  
+
+### 🧑‍💻 **User-Friendly Interface**  
+- Simple design for intuitive navigation and control.  
 
 ---
 
-## 💡 How It Works  
+## 💡 How the App Works  
 
-1. **Sensor Integration**: Sensors continuously monitor environmental factors such as temperature and humidity.  
-2. **Data Transmission**: Data is sent to the app in real time via IoT protocols.  
-3. **Control Interface**: Users can adjust settings like temperature thresholds directly from the app.  
+1. **IoT Sensors**: Ultrasonic, temperature, and humidity sensors monitor the incubator conditions.  
+2. **Data Communication**: Sensor data is transmitted to the app in real time via IoT protocols.  
+3. **User Controls**: The app enables users to adjust environmental parameters, ensuring ideal hatching conditions.  
 
 ---
 
 ## 🛠️ Technologies Used  
 
-- **Frontend**: Flutter for cross-platform mobile development.  
-- **IoT Integration**: Ultrasonic, temperature, and humidity sensors.  
-- **Communication**: IoT protocols for real-time data transmission.  
+- **Flutter**: Cross-platform framework for the mobile app.  
+- **IoT Devices**: Sensors to measure temperature, humidity, and distance.  
+- **Dart**: Backend logic and Flutter development.  
+- **State Management**: Efficient app state handled using GetX.  
 
 ---
 
 ## 🚀 Getting Started  
 
-### Prerequisites  
+### ✅ Prerequisites  
 
-- A smartphone with Android/iOS.  
-- IoT setup including sensors for temperature, humidity, and distance.  
-- Flutter installed on your development environment.  
-  👉 [Get Started with Flutter](https://flutter.dev/docs/get-started)
+- A smartphone running Android/iOS.  
+- IoT setup with:  
+  - Ultrasonic sensor  
+  - DHT (temperature and humidity) sensor  
+  - IoT-compatible microcontroller (e.g., ESP32).  
+- Flutter installed on your development machine.  
+  👉 [Install Flutter](https://flutter.dev/docs/get-started)  
 
-### Installation  
+### 🔧 Installation  
 
-1. Clone the repository:  
+1. Clone this repository to your local machine:  
    ```bash
    git clone https://github.com/TasnimIslamRaisa/Egg-Incubator-App.git
